@@ -1,11 +1,11 @@
 # To change this template, choose Tools | Templates
 # and open the template in the editor.
 
-require 'main'
+require 'board'
 
 describe Board do
   before(:each) do
-    @board= Board.new
+    @board = Board.new
   end
 
   it "creates a new, empty board" do
@@ -57,52 +57,8 @@ describe Board do
     children[1].data.should =~ (['O','X','O','X','O','X','X',' ','X'])
   end
 
-end
-
-describe Minimax do
-  before(:each) do
-    @minimax= Minimax.new('X')
-  end
-
-  it "takes in the current player" do
-    @minimax.player.should == 'X'
-  end
-
-  it "returns the next player's turn" do
-    @minimax.next_turn('X').should == 'O'
-    @minimax.next_turn('O').should == 'X'
-  end
-
-  it "returns a score for a completed board" do
-    @board1= Board.new(['X','X','X',' ',' ',' ',' ',' ',' '])
-    @board2= Board.new(['O','O','O',' ',' ',' ',' ',' ',' '])
-    @board3= Board.new(['X','O','X','O','X','O','O','X','O'])
-    @minimax.score(@board1).should == 1
-    @minimax.score(@board2).should == -1
-    @minimax.score(@board3).should == 0
-  end
-
-  it "checks if the game is over and returns the score" do
-    @board1= Board.new(['X','X','X',' ',' ',' ',' ',' ',' '])
-    @board1.game_over?.should == true
-    @minimax.minimax(@board1, 'X').should == 1
-  end
-
-end
-
-describe Game do
-  before(:each) do
-    @board= Board.new
-    @minimax= Minimax.new('X')
-    @game= Game.new
-  end
-
-  #it "asks the player for the number of players" do
-    #@game.players.should == 1
-  #end
-
-  it "asks the player for a move" do
-
+  it "prints the board" do
+    @board.print_board
   end
 
 end
