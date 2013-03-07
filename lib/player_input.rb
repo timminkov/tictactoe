@@ -1,3 +1,5 @@
+require 'board'
+
 class PlayerInput
   attr_reader :io
 
@@ -22,10 +24,15 @@ class PlayerInput
     name
   end
 
-  def get_move(name)
+  def get_move(name, board)
     @io.puts name + ", please make your move."
-    while !(move = @io.gets.chomp.to_i - 1).between?(0,8)
-      @io.puts "Sorry, that is not a valid move. Please enter a valid move."
+    while !(is_a_legal_move?((move = @io.gets.chomp.to_i - 1), board))
+      puts move
+      if !(move.between?(0,8))
+        @io.puts "Sorry, that is not a valid move. Please enter a valid move."
+      else
+        @io.puts "That space is occupied. Please make another move."
+      end
     end
     move
   end
@@ -36,5 +43,9 @@ class PlayerInput
       @io.puts "You have entered an invalid piece. Please enter either x or o."
     end
     piece
+  end
+
+  def is_a_legal_move?(move, board)
+    move.between?(0,8) && board.move_available?(move)
   end
 end

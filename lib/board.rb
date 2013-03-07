@@ -48,5 +48,8 @@ class Board
     ((@data[pos1] == @data[pos2]) && (@data[pos2] == @data[pos3]))
   end
 
+  def move_available?(move)
+    @data[move] == ' '
+  end
 
 end

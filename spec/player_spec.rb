@@ -30,26 +30,33 @@ describe Player do
   describe "#turn" do
     before(:each) do
       @player.name = 'Tim'
-      @board = Board.new
+      @board = double("board")
       @io.stub(:get_move)
+      @board.stub(:move)
     end
     
     it "takes in a board object" do
       @io.stub(:get_move)
+      @board.stub(:print_board)
       @player.turn(@board)
     end
 
     it "calls PlayerInput.get_move" do
-      @io.should_receive(:get_move) {'Tim'}
+      @io.should_receive(:get_move).with('Tim', @board)
+      @board.stub(:print_board)
       @player.turn(@board)
     end
-    it "prints the board" do
-      board = double("board")
-      @player.turn(board)
-      
-    end
-    it "checks to see if a move is available" do
 
+    it "prints the board" do
+      @board.should_receive(:print_board)
+      @player.turn(@board)
+    end
+    
+    it "calls move on board" do
+      board = double("board")
+      board.stub(:print_board)
+      board.should_receive(:move)
+      @player.turn(board)
     end
   end
 end 

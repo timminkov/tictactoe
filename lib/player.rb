@@ -6,7 +6,9 @@ class Player
   end
 
   def turn(board)
-    @io.get_move(@name)
+    board.print_board
+    board.move(@io.get_move(@name, board), @piece)
+    board
   end
   
 end

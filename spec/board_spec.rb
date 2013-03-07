@@ -61,4 +61,24 @@ describe Board do
     @board.print_board
   end
 
+  describe "#move_available?" do
+    before(:each) do
+      @board2 = Board.new(['O','X','O','X',' ','X','X',' ',' '])
+    end
+    it "passes in a move" do
+      @board.move_available?(1)
+    end
+
+    it "returns true if a board space is blank" do
+      @board2.move_available?(4).should == true
+      @board2.move_available?(7).should == true
+      @board2.move_available?(8).should == true
+    end
+
+    it "returns false if a board space is taken" do
+      @board2.move_available?(0).should == false
+      @board2.move_available?(3).should == false
+    end
+  end
+
 end

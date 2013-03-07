@@ -1,4 +1,5 @@
 require 'player_input'
+require 'board'
 
 describe PlayerInput do
   it "is initialized with an IO object" do
@@ -107,41 +108,44 @@ describe PlayerInput do
   end
 
   describe "#get_move" do
+    before (:each) do
+      @board = Board.new(['O','X','O','X',' ','X','X',' ',' '])
+    end
     it "asks the player for their piece" do
       io = double("kern")
-      io.stub(:gets).and_return("need another string here for chomp", "5")
+      io.stub(:gets).and_return("need another string here for chomp", "5\n")
       
       name = 'Tim'
       io.should_receive(:puts).with(name + ", please make your move.")
       io.should_receive(:puts).with("Sorry, that is not a valid move. Please enter a valid move.")
             
       input = PlayerInput.new(io)
-      input.get_move(name)
+      input.get_move(name, @board)
     end
 
-    it "returns 0 when the player enters 1" do
+    it "returns 7 when the player enters 8" do
       io = double("kern")
       io.stub(:puts)
-      io.stub(:gets) {"1\n"}
+      io.stub(:gets).and_return("1\n", "8\n")
 
       name = 'Tim'
       input = PlayerInput.new(io)
-      input.get_move(name).should == 0
+      input.get_move(name, @board).should == 7
     end
 
-    it "returns 5 when the player enters 6" do
+    it "returns 4 when the player enters 5" do
       io = double("kern")
       io.stub(:puts)
-      io.stub(:gets) {"6\n"}
+      io.stub(:gets) {"5\n"}
 
       name = 'Tim'
       input = PlayerInput.new(io)
-      input.get_move(name).should == 5
+      input.get_move(name, @board).should == 4
     end
 
     it "refers to the current player based on their name" do
       io = double("kern")
-      io.stub(:gets).and_return("string for chomp\n", "5")
+      io.stub(:gets).and_return("string for chomp\n", "5\n")
 
       name = 'Eric'
       io.should_receive(:puts).with(name + ", please make your move.")
@@ -149,19 +153,38 @@ describe PlayerInput do
 
             
       input = PlayerInput.new(io)
-      input.get_move(name)
+      input.get_move(name, @board)
     end
 
     it "throws an error when the player makes an invalid move" do
       io = double("kern")
-      io.stub(:gets).and_return("10\n", "5")
+      io.stub(:gets).and_return("10\n", "5\n")
 
       name = 'Tim'
       io.should_receive(:puts).with(name + ", please make your move.")
       io.should_receive(:puts).with("Sorry, that is not a valid move. Please enter a valid move.")
 
       input = PlayerInput.new(io)
-      input.get_move(name).should == 4
+      input.get_move(name, @board).should == 4
+    end
+
+    it "takes in a board object" do
+      io = double("kern")
+      io.stub(:puts)
+      io.stub(:gets) {"5\n"}
+      name = 'Tim'
+      input = PlayerInput.new(io)
+      input.get_move(name, @board)
+    end
+
+    it "throws an error if a user enters a move that is taken" do
+      io = double("kern")
+      io.stub(:puts)
+      io.stub(:gets).and_return("1\n", "5\n")
+      io.should_receive(:puts).with("That space is occupied. Please make another move.")
+      name = 'Tim'
+      input = PlayerInput.new(io)
+      input.get_move(name, @board)
     end
   end
 
@@ -221,6 +244,28 @@ describe PlayerInput do
 
       input = PlayerInput.new(io)
       input.get_piece(name).should == 'O'
+    end
+  end
+
+  describe "#is_a_legal_move?" do
+    before (:each) do
+      @board = Board.new(['O','X','O','X',' ','X','X',' ',' '])
+    end
+
+    it "takes in a move and a board" do
+      io = double("kern")
+      input = PlayerInput.new(io)
+      move = 2
+      input.is_a_legal_move?(move, @board)
+    end
+
+    it "returns true if the range is within 0-8 and there is a space open" do
+      io = double("kern")
+      input = PlayerInput.new(io)
+      input.is_a_legal_move?(0, @board).should == false
+      input.is_a_legal_move?(4, @board).should == true
+      input.is_a_legal_move?(11, @board).should == false
+      input.is_a_legal_move?(7, @board).should == true
     end
   end
 end
