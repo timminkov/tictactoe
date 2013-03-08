@@ -48,4 +48,8 @@ class PlayerInput
   def is_a_legal_move?(move, board)
     move.between?(0,8) && board.move_available?(move)
   end
+
+  def example_board
+    @io.puts '1' + '|' + '2' + '|' + '3' +  "\n" + '- ' + '- ' + '-' + "\n" + '4' + '|' + '5' + '|' + '6' +  "\n" + '- ' + '- ' + '-' + "\n" + '7' + '|' + '8' + '|' + '9' +  "\n"
+  end
 end

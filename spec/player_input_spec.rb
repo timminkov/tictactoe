@@ -268,4 +268,14 @@ describe PlayerInput do
       input.is_a_legal_move?(7, @board).should == true
     end
   end
+
+  describe "#example_board" do
+    it "prints an example board" do
+      io = double("kern")
+      input = PlayerInput.new(io)
+
+      io.should_receive(:puts).with('1' + '|' + '2' + '|' + '3' +  "\n" + '- ' + '- ' + '-' + "\n" + '4' + '|' + '5' + '|' + '6' +  "\n" + '- ' + '- ' + '-' + "\n" + '7' + '|' + '8' + '|' + '9' +  "\n")
+      input.example_board
+    end
+  end
 end
