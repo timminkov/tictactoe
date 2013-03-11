@@ -26,6 +26,8 @@ describe Board do
   it "checks if a board is a tie" do
     @board2 = Board.new(['X','X','O','O','X','X','X','O','O'])
     @board2.status.should == 'tie'
+    board = Board.new(['X','O','X','O',' ',' ',' ',' ',' '])
+    board.status.should_not == 'tie'
   end
 
   it "checks if a board winner is an X" do
@@ -58,7 +60,8 @@ describe Board do
   end
 
   it "prints the board" do
-    @board.print_board
+    board = Board.new(['O','X','O','X','O','X','X','X',' '])
+    board.print_board
   end
 
   describe "#move_available?" do

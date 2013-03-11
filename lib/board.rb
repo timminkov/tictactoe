@@ -5,6 +5,10 @@ class Board
     @data = board
   end
 
+  def check(pos)
+    @data[pos]
+  end
+
   def move(move, piece)
     @data[move] = piece
   end
@@ -14,16 +18,16 @@ class Board
   end
 
   def print_board
-    puts @data[0] + '|' + @data[1] + '|' + @data[2] + "\n- - -\n" + @data[3] + '|' + @data[4] + '|' + @data[5] + "\n- - -\n" + @data[6] + '|' + @data[7] + '|' + @data[8]
+    puts @data[0] + '|' + @data[1] + '|' + @data[2] + "\n- - -\n" + @data[3] + '|' + @data[4] + '|' + @data[5] + "\n- - -\n" + @data[6] + '|' + @data[7] + '|' + @data[8] + "\n"
   end
 
-  def children(player)
+  def children(player = nil)
     children = Array.new
     9.times do |i|
       tempboard = @data.dup
       if tempboard[i] == ' '
         tempboard[i] = player
-        children << Board.new(tempboard)
+        children<<Board.new(tempboard)
       end
     end
     children
@@ -45,7 +49,7 @@ class Board
   end
 
   def match?(pos1, pos2, pos3)
-    ((@data[pos1] == @data[pos2]) && (@data[pos2] == @data[pos3]))
+    ((@data[pos1] == @data[pos2]) && (@data[pos2] == @data[pos3]) && (@data[pos1] != ' '))
   end
 
   def move_available?(move)

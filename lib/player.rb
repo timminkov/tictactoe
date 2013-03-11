@@ -6,9 +6,16 @@ class Player
   end
 
   def turn(board)
-    board.print_board
     board.move(@io.get_move(@name, board), @piece)
     board
   end
-  
+
+  def win
+    puts @name + " wins!"
+  end
+
+  def other_piece(piece)
+    return 'X' if piece == 'O'
+    'O' if piece == 'X'
+  end
 end

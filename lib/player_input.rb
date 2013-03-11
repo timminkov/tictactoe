@@ -15,9 +15,8 @@ class PlayerInput
     players
   end
 
-  def get_name(current_player)
-    player = (current_player == :player1) ? '1' : '2'
-    @io.puts "Hello Player " + player + "! Please enter your name"
+  def get_name(player)
+    @io.puts "Hello Player " + player.to_s + "! Please enter your name"
     while (name = @io.gets.chomp) == ''
       @io.puts "Sorry! You must enter a name. Please try again."
     end
@@ -27,7 +26,6 @@ class PlayerInput
   def get_move(name, board)
     @io.puts name + ", please make your move."
     while !(is_a_legal_move?((move = @io.gets.chomp.to_i - 1), board))
-      puts move
       if !(move.between?(0,8))
         @io.puts "Sorry, that is not a valid move. Please enter a valid move."
       else
@@ -50,6 +48,6 @@ class PlayerInput
   end
 
   def example_board
-    @io.puts '1' + '|' + '2' + '|' + '3' +  "\n" + '- ' + '- ' + '-' + "\n" + '4' + '|' + '5' + '|' + '6' +  "\n" + '- ' + '- ' + '-' + "\n" + '7' + '|' + '8' + '|' + '9' +  "\n"
+    @io.puts '1' + '|' + '2' + '|' + '3' + "\n" + '- ' + '- ' + '-' + "\n" + '4' + '|' + '5' + '|' + '6' + "\n" + '- ' + '- ' + '-' + "\n" + '7' + '|' + '8' + '|' + '9' + "\n"
   end
 end
