@@ -25,7 +25,13 @@ class Game
     board = Board.new
     @io.example_board
     
+    board = self.loop_turns(board)
 
+    self.winner(board)
+
+  end
+
+  def loop_turns(board)
     @player1.piece == 'X' ? turn = :p1 : turn = :p2
 
     while !board.game_over?
@@ -38,13 +44,11 @@ class Game
         turn = :p1
       end
     end
-
-    board.print_board
-    self.winner(board)
-
+    board
   end
 
   def winner(board)
+    board.print_board
     if board.status == @player1.piece
       @player1.win
     elsif board.status == @player2.piece

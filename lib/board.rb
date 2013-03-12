@@ -5,10 +5,6 @@ class Board
     @data = board
   end
 
-  def check(pos)
-    @data[pos]
-  end
-
   def move(move, piece)
     @data[move] = piece
   end

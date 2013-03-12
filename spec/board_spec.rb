@@ -8,62 +8,6 @@ describe Board do
     @board = Board.new
   end
 
-  it "creates a new, empty board" do
-    @board.data.should == [' ',' ',' ',' ',' ',' ',' ',' ',' ']
-  end
-
-  it "places a piece on the board" do
-    @board.move(0,'X')
-    @board.data.should == ['X',' ',' ',' ',' ',' ',' ',' ',' ']
-  end
-
-  it "checks if three positions in an array are equal" do
-    @board2 = Board.new(['X','X','X','O','O',' ',' ',' ',' '])
-    @board2.match?(0, 1, 2).should == true
-    @board2.match?(2, 3, 4).should == false
-  end
-
-  it "checks if a board is a tie" do
-    @board2 = Board.new(['X','X','O','O','X','X','X','O','O'])
-    @board2.status.should == 'tie'
-    board = Board.new(['X','O','X','O',' ',' ',' ',' ',' '])
-    board.status.should_not == 'tie'
-  end
-
-  it "checks if a board winner is an X" do
-    @board2 = Board.new(['X','X','X','O','O',' ',' ',' ',' '])
-    @board2.status.should == 'X'
-  end
-
-  it "checks if a board winner is an O" do
-    @board2 = Board.new(['O','X','O','X','O','X','X','X','O'])
-    @board2.status.should == 'O'
-  end
-
-  it "checks if a board over" do
-    @board2 = Board.new(['X',' ','O','O','X','X','X','O','O'])
-    @board2.game_over?.should == false
-    @board3 = Board.new(['X','X','O','O','X','X','X','O','O'])
-    @board3.game_over?.should == true
-    @board4 = Board.new(['X','X','X','O','O',' ',' ',' ',' '])
-    @board4.game_over?.should == true
-    @board5 = Board.new(['X','X',' ','O','O','O',' ',' ',' '])
-    @board5.game_over?.should == true
-  end
-
-  it "returns an array of boards with possible next moves" do
-    @board2 = Board.new(['O','X','O','X','O','X','X',' ',' '])
-    children = @board2.children('X')
-    children.length.should == 2
-    children[0].data.should =~ (['O','X','O','X','O','X','X','X',' '])
-    children[1].data.should =~ (['O','X','O','X','O','X','X',' ','X'])
-  end
-
-  it "prints the board" do
-    board = Board.new(['O','X','O','X','O','X','X','X',' '])
-    board.print_board
-  end
-
   describe "#move_available?" do
     before(:each) do
       @board2 = Board.new(['O','X','O','X',' ','X','X',' ',' '])
@@ -84,4 +28,93 @@ describe Board do
     end
   end
 
+  describe "#initialize" do
+    it "is initialized with a new empty board" do
+      board = Board.new
+      board.data.should == [' ',' ',' ',' ',' ',' ',' ',' ',' ']
+    end
+
+    it "can be initialized with a different board" do
+      board = Board.new(['O','X','O','X',' ','X','X',' ',' '])
+    end
+  end
+
+  describe "#move" do
+    it "takes in a move and a piece" do
+      @board.move(0, 'X')
+    end
+
+    it "places a piece on the board" do
+      @board.move(0,'X')
+      @board.data.should == ['X',' ',' ',' ',' ',' ',' ',' ',' ']
+      @board.move(1,'O')
+      @board.data.should == ['X','O',' ',' ',' ',' ',' ',' ',' ']
+    end
+  end
+
+  describe "#match?" do
+    it "takes in three numbers" do
+      @board.match?(1, 2, 3)
+    end
+
+    it "checks if three positions in an array are equal" do
+      board2 = Board.new(['X','X','X','O','O',' ',' ',' ',' '])
+      board2.match?(0, 1, 2).should == true
+      board2.match?(2, 3, 4).should == false
+    end
+
+    it "will return false if one of the board positions is blank" do
+      board2 = Board.new(['X','X','X','O','O',' ',' ',' ',' '])
+      board2.match?(6, 7, 8).should == false
+    end
+  end
+
+  describe "#status" do
+    it "checks if a board is a tie" do
+      @board2 = Board.new(['X','X','O','O','X','X','X','O','O'])
+      @board2.status.should == 'tie'
+      board = Board.new(['X','O','X','O',' ',' ',' ',' ',' '])
+      board.status.should_not == 'tie'
+    end
+
+    it "checks if a board winner is an X" do
+      @board2 = Board.new(['X','X','X','O','O',' ',' ',' ',' '])
+      @board2.status.should == 'X'
+    end
+
+    it "checks if a board winner is an O" do
+      @board2 = Board.new(['O','X','O','X','O','X','X','X','O'])
+      @board2.status.should == 'O'
+    end
+  end
+
+  describe "#game_over?" do
+    it "checks if a board over" do
+      @board2 = Board.new(['X',' ','O','O','X','X','X','O','O'])
+      @board2.game_over?.should == false
+      @board3 = Board.new(['X','X','O','O','X','X','X','O','O'])
+      @board3.game_over?.should == true
+      @board4 = Board.new(['X','X','X','O','O',' ',' ',' ',' '])
+      @board4.game_over?.should == true
+      @board5 = Board.new(['X','X',' ','O','O','O',' ',' ',' '])
+      @board5.game_over?.should == true
+    end
+  end
+
+  describe "#print_board" do
+    it "prints the board" do
+      board = Board.new(['O','X','O','X','O','X','X','X',' '])
+      board.print_board
+    end
+  end
+
+  describe "#children" do
+    it "returns an array of boards with possible next moves" do
+      @board2 = Board.new(['O','X','O','X','O','X','X',' ',' '])
+      children = @board2.children('X')
+      children.length.should == 2
+      children[0].data.should =~ (['O','X','O','X','O','X','X','X',' '])
+      children[1].data.should =~ (['O','X','O','X','O','X','X',' ','X'])
+    end
+  end
 end

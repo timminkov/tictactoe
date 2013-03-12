@@ -10,13 +10,9 @@ class Minimax
   end
 
   def score(board)
-    if board.status == @player
-      1
-    elsif board.status == 'tie'
-      0
-    else
-      -1
-    end
+    return 1 if board.status == @player
+    return 0 if board.status == 'tie'
+    return -1 if ((board.status != @player) && (board.status != 'tie'))
   end
 
   def minimax(board, player = @player)

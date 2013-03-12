@@ -13,6 +13,7 @@ describe Player do
     io = PlayerInput.new(kern)
     player = Player.new(io)
   end
+  
   describe "#name" do
     it "returns the name" do
       @player.name = 'Tim'
@@ -36,27 +37,24 @@ describe Player do
     end
     
     it "takes in a board object" do
-      @io.stub(:get_move)
-      @board.stub(:print_board)
       @player.turn(@board)
     end
 
     it "calls PlayerInput.get_move" do
       @io.should_receive(:get_move).with('Tim', @board)
-      @board.stub(:print_board)
       @player.turn(@board)
     end
 
-    it "prints the board" do
-      @board.should_receive(:print_board)
+    it "calls move on board" do
+      @board.should_receive(:move)
       @player.turn(@board)
     end
-    
-    it "calls move on board" do
-      board = double("board")
-      board.stub(:print_board)
-      board.should_receive(:move)
-      @player.turn(board)
+  end
+
+  describe "#win" do
+    it "announces that the player wins" do
+      @player.name = 'Tim'
+      @player.win
     end
   end
 end 
