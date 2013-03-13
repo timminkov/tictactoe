@@ -2,6 +2,7 @@
 # and open the template in the editor.
 
 require 'game'
+require 'player_input'
 
 describe Game do
   describe "#create_players" do
@@ -11,6 +12,7 @@ describe Game do
       io.stub(:gets).and_return("Tim")
       @io = PlayerInput.new(io)
     end
+    
     it "should take in the number of players" do
       players = 1
       

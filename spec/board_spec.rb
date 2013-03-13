@@ -12,9 +12,6 @@ describe Board do
     before(:each) do
       @board2 = Board.new(['O','X','O','X',' ','X','X',' ',' '])
     end
-    it "passes in a move" do
-      @board.move_available?(1)
-    end
 
     it "returns true if a board space is blank" do
       @board2.move_available?(4).should == true
@@ -36,14 +33,11 @@ describe Board do
 
     it "can be initialized with a different board" do
       board = Board.new(['O','X','O','X',' ','X','X',' ',' '])
+      board.data.should == ['O','X','O','X',' ','X','X',' ',' ']
     end
   end
 
   describe "#move" do
-    it "takes in a move and a piece" do
-      @board.move(0, 'X')
-    end
-
     it "places a piece on the board" do
       @board.move(0,'X')
       @board.data.should == ['X',' ',' ',' ',' ',' ',' ',' ',' ']
@@ -53,10 +47,6 @@ describe Board do
   end
 
   describe "#match?" do
-    it "takes in three numbers" do
-      @board.match?(1, 2, 3)
-    end
-
     it "checks if three positions in an array are equal" do
       board2 = Board.new(['X','X','X','O','O',' ',' ',' ',' '])
       board2.match?(0, 1, 2).should == true
@@ -98,13 +88,6 @@ describe Board do
       @board4.game_over?.should == true
       @board5 = Board.new(['X','X',' ','O','O','O',' ',' ',' '])
       @board5.game_over?.should == true
-    end
-  end
-
-  describe "#print_board" do
-    it "prints the board" do
-      board = Board.new(['O','X','O','X','O','X','X','X',' '])
-      board.print_board
     end
   end
 

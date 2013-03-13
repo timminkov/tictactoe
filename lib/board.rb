@@ -13,10 +13,6 @@ class Board
     self.status != nil
   end
 
-  def print_board
-    puts @data[0] + '|' + @data[1] + '|' + @data[2] + "\n- - -\n" + @data[3] + '|' + @data[4] + '|' + @data[5] + "\n- - -\n" + @data[6] + '|' + @data[7] + '|' + @data[8] + "\n"
-  end
-
   def children(player = nil)
     children = Array.new
     9.times do |i|

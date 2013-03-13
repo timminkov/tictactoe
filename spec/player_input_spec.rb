@@ -1,13 +1,9 @@
 require 'player_input'
 require 'board'
+require 'player'
+require 'cpu'
 
 describe PlayerInput do
-  it "is initialized with an IO object" do
-    io = Kernel
-    input = PlayerInput.new(io)
-    input.io.should == io
-  end
-
   describe "#get_players" do
     it "asks the user for the number of players" do
       io = double("kern")
@@ -54,7 +50,7 @@ describe PlayerInput do
       io.should_receive(:puts).with("Hello Player 1! Please enter your name")
       io.stub(:gets) {'chomp needs a string here'}
 
-      current_player = :player1
+      current_player = 1
       input = PlayerInput.new(io)
 
       input.get_name(current_player)
@@ -100,7 +96,7 @@ describe PlayerInput do
       io.should_receive(:puts).with("Hello Player 2! Please enter your name")
       io.stub(:gets) {"Eric\n"}
 
-      current_player = :player2
+      current_player = 2
       input = PlayerInput.new(io)
       input.get_name(current_player)
     end
@@ -108,9 +104,10 @@ describe PlayerInput do
   end
 
   describe "#get_move" do
-    before (:each) do
+    before(:each) do
       @board = Board.new(['O','X','O','X',' ','X','X',' ',' '])
     end
+
     it "asks the player for their piece" do
       io = double("kern")
       io.stub(:gets).and_return("need another string here for chomp", "5\n")
@@ -248,7 +245,7 @@ describe PlayerInput do
   end
 
   describe "#is_a_legal_move?" do
-    before (:each) do
+    before(:each) do
       @board = Board.new(['O','X','O','X',' ','X','X',' ',' '])
     end
 
@@ -276,6 +273,69 @@ describe PlayerInput do
 
       io.should_receive(:puts).with('1' + '|' + '2' + '|' + '3' +  "\n" + '- ' + '- ' + '-' + "\n" + '4' + '|' + '5' + '|' + '6' +  "\n" + '- ' + '- ' + '-' + "\n" + '7' + '|' + '8' + '|' + '9' +  "\n")
       input.example_board
+    end
+  end
+
+  describe "#print_board" do
+    it "prints the board" do
+      io = double("kern")
+      input = PlayerInput.new(io)
+      board = Board.new(['O','X','O','X','O','X','X','X',' '])
+
+      io.should_receive(:puts).with(board.data[0] + '|' + board.data[1] + '|' + board.data[2] + "\n- - -\n" + board.data[3] + '|' + board.data[4] + '|' + board.data[5] + "\n- - -\n" + board.data[6] + '|' + board.data[7] + '|' + board.data[8] + "\n")
+      input.print_board(board)
+    end
+  end
+
+  describe "#winner" do
+    before(:each) do
+      @io2 = double("kern")
+      @playerinput = PlayerInput.new(@io2)
+
+      @player1 = Player.new(@playerinput)
+      @player1.name = 'Tim'
+      @player1.piece = 'X'
+
+      @player2 = Player.new(@playerinput)
+      @player2.name = 'Eric'
+      @player2.piece = 'O'
+
+      @cpu = Cpu.new
+      @cpu.piece = 'O'
+    end
+
+    it "congratulations player 1 if they win" do
+      board = Board.new(['X','X','X',' ',' ',' ',' ',' ',' '])
+      @io2.should_receive(:puts).with(@player1.name + " wins!")
+      @playerinput.winner(@player1, @player2, board) 
+    end
+
+    it "congratulations a human player 2 if they win" do
+      board = Board.new(['O','O','O',' ',' ',' ',' ',' ',' '])
+      @io2.should_receive(:puts).with(@player2.name + " wins!")
+      @playerinput.winner(@player1, @player2, board)
+    end
+
+    it "tells the player that the CPU won if the CPU won" do
+      board = Board.new(['O','O','O',' ',' ',' ',' ',' ',' '])
+      @io2.should_receive(:puts).with("Sorry! The CPU won!")
+      @playerinput.winner(@player1, @cpu, board)
+    end
+
+    it "tells the player that the CPU won if the CPU won" do
+      board = Board.new(['X','O','X','O','O','X','X','X','O'])
+      @io2.should_receive(:puts).with("It's a tie!")
+      @playerinput.winner(@player1, @cpu, board)
+    end
+  end
+
+  describe "#computer_turn" do
+    it "lets the player know the computer moved" do
+      io = double("kern")
+      playerinput = PlayerInput.new(io)
+
+      io.should_receive(:puts).with("The computer has made its move...")
+      playerinput.computer_turn
     end
   end
 end

@@ -1,13 +1,16 @@
 require 'minimax'
 
 class Cpu
-  attr_accessor :piece
+  attr_accessor :piece, :name
+
+  def initialize
+    @name = 'CPU'
+  end
 
   def turn(board)
     minimaxer = Minimax.new(@piece)
     children = board.children(@piece)
     board = children.max_by { |child| minimaxer.minimax(child, other_piece(@piece)) }
-    puts "The computer has made its move..."
     board
   end
 
@@ -16,7 +19,4 @@ class Cpu
     'O' if piece == 'X'
   end
 
-  def win
-    puts "Sorry! The CPU won!"
-  end
 end

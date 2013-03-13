@@ -48,6 +48,26 @@ class PlayerInput
   end
 
   def example_board
-    @io.puts '1' + '|' + '2' + '|' + '3' + "\n" + '- ' + '- ' + '-' + "\n" + '4' + '|' + '5' + '|' + '6' + "\n" + '- ' + '- ' + '-' + "\n" + '7' + '|' + '8' + '|' + '9' + "\n"
+    @io.puts "1|2|3\n- - -\n4|5|6\n- - -\n7|8|9\n"
+  end
+
+  def print_board(board)
+    @io.puts board.data[0] + '|' + board.data[1] + '|' + board.data[2] + "\n- - -\n" + board.data[3] + '|' + board.data[4] + '|' + board.data[5] + "\n- - -\n" + board.data[6] + '|' + board.data[7] + '|' + board.data[8] + "\n"
+  end
+
+  def winner(player1, player2, board)
+    if board.status == player1.piece
+      @io.puts player1.name + " wins!"
+    elsif board.status == player2.piece && player2.name != 'CPU'
+      @io.puts player2.name + " wins!"
+    elsif board.status == player2.piece && player2.name == 'CPU'
+      @io.puts "Sorry! The CPU won!"
+    else
+      @io.puts "It's a tie!"
+    end
+  end
+
+  def computer_turn
+    @io.puts "The computer has made its move..."
   end
 end

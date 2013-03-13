@@ -6,6 +6,12 @@ describe Cpu do
     @cpu = Cpu.new
   end
 
+  describe "#initialize" do
+    it "gets initialized with the name 'CPU'" do
+      @cpu.name.should == 'CPU'
+    end
+  end
+
   describe "#piece" do
     it "takes in a piece and outputs it" do
       @cpu.piece = 'X'

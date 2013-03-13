@@ -10,10 +10,6 @@ class Player
     board
   end
 
-  def win
-    puts @name + " wins!"
-  end
-
   def other_piece(piece)
     return 'X' if piece == 'O'
     'O' if piece == 'X'

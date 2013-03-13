@@ -50,11 +50,4 @@ describe Player do
       @player.turn(@board)
     end
   end
-
-  describe "#win" do
-    it "announces that the player wins" do
-      @player.name = 'Tim'
-      @player.win
-    end
-  end
 end 
