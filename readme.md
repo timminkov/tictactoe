@@ -14,6 +14,13 @@ To run, use
 ruby -Ilib bin/tic_tac_toe.rb
 </pre>
 
+Testing
+-------------------------
+To run tests, use 
+
+<pre>
+$ rspec spec/
+</pre>
 
 Contact
 -------------------------
