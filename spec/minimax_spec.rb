@@ -22,10 +22,12 @@ describe Minimax do
   describe "#score" do
     it "returns a score for a completed board" do
       @board1= Board.new(['X','X','X',' ',' ',' ',' ',' ',' '])
-      @board2= Board.new(['O','O','O',' ',' ',' ',' ',' ',' '])
-      @board3= Board.new(['X','O','X','O','X','O','O','X','O'])
       @minimax.score(@board1).should == 1
+
+      @board2= Board.new(['O','O','O',' ',' ',' ',' ',' ',' '])
       @minimax.score(@board2).should == -1
+
+      @board3= Board.new(['X','O','X','O','X','O','O','X','O'])
       @minimax.score(@board3).should == 0
     end
   end
@@ -33,6 +35,7 @@ describe Minimax do
   describe "#minimax" do
     it "checks if the game is over and returns the score" do
       @board1= Board.new(['X','X','X',' ',' ',' ',' ',' ',' '])
+      
       @board1.game_over?.should == true
       @minimax.minimax(@board1, 'X').should == 1
     end

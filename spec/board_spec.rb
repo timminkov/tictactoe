@@ -1,6 +1,3 @@
-# To change this template, choose Tools | Templates
-# and open the template in the editor.
-
 require 'board'
 
 describe Board do
@@ -41,6 +38,7 @@ describe Board do
     it "places a piece on the board" do
       @board.move(0,'X')
       @board.data.should == ['X',' ',' ',' ',' ',' ',' ',' ',' ']
+
       @board.move(1,'O')
       @board.data.should == ['X','O',' ',' ',' ',' ',' ',' ',' ']
     end
@@ -63,6 +61,7 @@ describe Board do
     it "checks if a board is a tie" do
       @board2 = Board.new(['X','X','O','O','X','X','X','O','O'])
       @board2.status.should == 'tie'
+
       board = Board.new(['X','O','X','O',' ',' ',' ',' ',' '])
       board.status.should_not == 'tie'
     end
@@ -82,10 +81,13 @@ describe Board do
     it "checks if a board over" do
       @board2 = Board.new(['X',' ','O','O','X','X','X','O','O'])
       @board2.game_over?.should == false
+
       @board3 = Board.new(['X','X','O','O','X','X','X','O','O'])
       @board3.game_over?.should == true
+
       @board4 = Board.new(['X','X','X','O','O',' ',' ',' ',' '])
       @board4.game_over?.should == true
+      
       @board5 = Board.new(['X','X',' ','O','O','O',' ',' ',' '])
       @board5.game_over?.should == true
     end

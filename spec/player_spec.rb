@@ -4,16 +4,10 @@ require 'player_input'
 
 describe Player do
   before(:each) do
-    @io = double("playerinput")
-    @player = Player.new(@io)
+    @playerinput = double("playerinput")
+    @player = Player.new(@playerinput)
   end
 
-  it "is initialized with a PlayerInput" do
-    kern = Kernel
-    io = PlayerInput.new(kern)
-    player = Player.new(io)
-  end
-  
   describe "#name" do
     it "returns the name" do
       @player.name = 'Tim'
@@ -32,16 +26,12 @@ describe Player do
     before(:each) do
       @player.name = 'Tim'
       @board = double("board")
-      @io.stub(:get_move)
+      @playerinput.stub(:get_move)
       @board.stub(:move)
     end
     
-    it "takes in a board object" do
-      @player.turn(@board)
-    end
-
     it "calls PlayerInput.get_move" do
-      @io.should_receive(:get_move).with('Tim', @board)
+      @playerinput.should_receive(:get_move).with('Tim', @board)
       @player.turn(@board)
     end
 

@@ -12,7 +12,7 @@ class Game
   def create_players(players)
     @player1 = Player.new(@io)
     
-    @players == 1 ? @player2 = Cpu.new : @player2 = Player.new(@io)
+    players == 1 ? @player2 = Cpu.new : @player2 = Player.new(@io)
     @player1.name = @io.get_name(1)
     @player2.name = @io.get_name(2) if players == 2
 
@@ -29,12 +29,11 @@ class Game
 
     @io.print_board(board)
     @io.winner(@player1, @player2, board)
-
   end
 
   def loop_turns(board, players)
-    @player1.piece == 'X' ? turn = :p1 : turn = :p2
-
+    turn = check_turn(@player1.piece)
+    
     while !board.game_over?
       @io.print_board(board)
       if turn == :p1
@@ -47,10 +46,12 @@ class Game
       end
     end
     board
-  end 
-end
+  end
 
-kern = Kernel
-io = PlayerInput.new(kern)
-game = Game.new(io)
-game.run
+  private
+
+  def check_turn(piece)
+    return :p1 if piece == 'X'
+    return :p2 if piece == 'O'
+  end
+end
