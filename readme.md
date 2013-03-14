@@ -11,7 +11,7 @@ Usage
 To run, use
 
 <pre>
-#!/usr/bin/env ruby tic_tac_toe.rb
+ruby -Ilib bin/tic_tac_toe.rb
 </pre>
 
 
