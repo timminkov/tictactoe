@@ -15,7 +15,7 @@ class Minimax
     return -1 if ((board.status != @player) && (board.status != 'tie'))
   end
 
-  def minimax(board, player = @player, children = nil)
+  def minimax(board, player = @player)
     return score(board) if board.game_over?
 
     children = board.children(player)
