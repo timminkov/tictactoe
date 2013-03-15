@@ -1,17 +1,16 @@
 require 'minimax'
 
 class Cpu
-  attr_accessor :piece, :name
+  attr_accessor :piece, :name, :minimaxer
 
   def initialize
     @name = 'CPU'
   end
 
   def turn(board)
-    minimaxer = Minimax.new(@piece)
+    @minimaxer = Minimax.new(@piece)
     children = board.children(@piece)
-    board = children.max_by { |child| minimaxer.minimax(child, other_piece(@piece)) }
-    board
+    board = children.max_by { |child| @minimaxer.minimax(child, other_piece(@piece)) }
   end
 
   def other_piece(piece)

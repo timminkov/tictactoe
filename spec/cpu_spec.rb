@@ -20,6 +20,19 @@ describe Cpu do
   end
 
   describe "#turn" do
+    it "creates a new minimax object" do
+      board = Board.new
+      @cpu.turn(board)
+      @cpu.minimaxer.should_not == nil
+    end
+
+    it "should return a completed board if given ['X','X','O','O','O','X','X','O',' ']" do
+      board = Board.new(['X','X','O','O','O','X','X','O',' '])
+      @cpu.piece = 'X'
+      board = @cpu.turn(board)
+      board.data.should == ['X','X','O','O','O','X','X','O','X']
+    end
+
     it "calls children on board" do
       board = double("board")
       board1 = Board.new(['X','X','O','O','O','X','X','O',' '])
