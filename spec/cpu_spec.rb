@@ -33,13 +33,24 @@ describe Cpu do
       board.data.should == ['X','X','O','O','O','X','X','O','X']
     end
 
-    it "calls children on board" do
-      board = double("board")
-      board1 = Board.new(['X','X','O','O','O','X','X','O',' '])
-      boards = [board1]
+    it "resolves in a cats game when played against itself" do
       @cpu.piece = 'X'
-      board.should_receive(:children).with('X').and_return(boards)
-      @cpu.turn(board)
+      cpu2 = Cpu.new
+      cpu2.piece = 'O'
+      board = Board.new
+      turn = 1
+
+      while !board.game_over?
+        if turn == 1
+          board = @cpu.turn(board)
+          turn = 2
+        else
+          board = cpu2.turn(board)
+          turn = 1
+        end
+      end
+
+      board.status.should == 'tie'
     end
   end
 

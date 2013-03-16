@@ -30,6 +30,11 @@ describe Minimax do
       board3= Board.new(['X','O','X','O','X','O','O','X','O'])
       @minimax.score(board3).should == 0
     end
+
+    it "can find scores many levels deep" do
+      board = Board.new(['X',' ',' ',' ',' ',' ',' ',' ',' '])
+      @minimax.minimax(board).should == 1
+    end
   end
 
   describe "#minimax" do
