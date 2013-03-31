@@ -6,7 +6,6 @@ class Cpu < BasePlayer
 
   def initialize
     @name = 'CPU'
-    @checked = false
   end
 
   def turn(board)
