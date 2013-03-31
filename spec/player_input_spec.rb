@@ -269,4 +269,34 @@ describe PlayerInput do
       @input.computer_turn
     end
   end
+
+  describe "#play_again?" do
+    before(:each) do
+      @io = double("kern")
+      @playerinput = PlayerInput.new(@io)
+      @io.stub(:puts)
+    end
+
+    it "asks the player for a 1 or 2" do
+      @io.stub(:gets) {"1\n"}
+      @io.should_receive(:puts).with("Press 1 to play again or 2 to quit.")
+      @playerinput.play_again?
+    end
+
+    it "returns true if 1 is entered" do
+      @io.stub(:gets) {"1\n"}
+      @playerinput.play_again?.should == true
+    end
+
+    it "returns false if 2 is entered" do
+      @io.stub(:gets) {"2\n"}
+      @playerinput.play_again?.should == false
+    end
+
+    it "outputs an error if the user enters in 'j'" do
+      @io.stub(:gets).and_return('j',"1\n")
+      @io.should_receive(:puts).with("That is not a valid command. Press 1 to play again or 2 to quit.")
+      @playerinput.play_again?
+    end
+  end
 end

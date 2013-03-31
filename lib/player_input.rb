@@ -73,12 +73,22 @@ class PlayerInput
     @io.puts "The computer has made its move..."
   end
 
+  def play_again?
+    @io.puts "Press 1 to play again or 2 to quit."
+    while ((selection = @io.gets.chomp.to_i) && selection != 1 && selection != 2)
+      @io.puts "That is not a valid command. Press 1 to play again or 2 to quit."
+    end
+
+    return true if selection == 1
+    return false if selection == 2
+  end
+
   private
 
   def data_to_string(data)
     case data
-    when nil then ' '
-    else data    
+      when nil then ' '
+      else data    
     end
   end
 

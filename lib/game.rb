@@ -29,6 +29,7 @@ class Game
 
     @io.print_board(board)
     @io.winner(@player1, @player2, board)
+    self.run if @io.play_again?
   end
 
   def loop_turns(board, players)
