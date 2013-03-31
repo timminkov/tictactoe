@@ -57,5 +57,37 @@ describe Minimax do
 
       @minimax.minimax(board2, 'X').should == 0
     end
+
+    it "returns a 1 if you can win next turn" do
+      board = Board.new(['X','O','X',
+                         'O','X','X',
+                         'O','O',' '])
+
+      @minimax.minimax(board, 'X').should == 1
+    end
+
+    it "returns 0 if you tie next turn" do
+      board = Board.new(['X','O','X',
+                         'X','O','O',
+                         'O','X',' '])
+
+      @minimax.minimax(board, 'X').should == 0
+    end
+
+    it "returns -1 if you lose no matter what in 2 turns" do
+      board = Board.new([' ','O',' ',
+                         'X','O','X',
+                         'O','X','O'])
+
+      @minimax.minimax(board, 'X').should == -1
+    end
+
+    it "returns 1 if your opponent will lose no matter what" do
+      board = Board.new([' ','X',' ',
+                         'X','O','X',
+                         'O','X',' '])
+      
+      @minimax.minimax(board, 'X').should == 1
+    end
   end
 end

@@ -17,7 +17,7 @@ class Game
     @player2.name = @io.get_name(2) if players == 2
 
     @player1.piece = @io.get_piece(@player1.name)
-    players == 2 ? @player2.piece = @player1.other_piece(@player1.piece) : @player2.piece = @player2.other_piece(@player1.piece)
+     players == 2 ? @player2.piece = @player1.other_piece : @player2.piece = @player2.other_piece
   end
 
   def run
@@ -36,13 +36,13 @@ class Game
     
     while !board.game_over?
       @io.print_board(board)
-      if turn == :p1
+      if turn == @player1
         board = @player1.turn(board)
-        turn = :p2
+        turn = @player2
       else
         board = @player2.turn(board)
         @io.computer_turn if players == 1
-        turn = :p1
+        turn = @player1
       end
     end
     board
@@ -51,7 +51,7 @@ class Game
   private
 
   def check_turn(piece)
-    return :p1 if piece == 'X'
-    return :p2 if piece == 'O'
+    return @player1 if piece == 'X'
+    return @player2 if piece == 'O'
   end
 end

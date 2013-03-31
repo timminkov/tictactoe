@@ -1,4 +1,6 @@
-class Player
+require 'base_player'
+
+class Player < BasePlayer
   attr_accessor :name, :piece
 
   def initialize(io)
@@ -8,10 +10,5 @@ class Player
   def turn(board)
     board.move(@io.get_move(@name, board), @piece)
     board
-  end
-
-  def other_piece(piece)
-    return 'X' if piece == 'O'
-    'O' if piece == 'X'
   end
 end

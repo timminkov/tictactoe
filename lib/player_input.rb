@@ -9,7 +9,7 @@ class PlayerInput
 
   def get_players
     @io.puts "Welcome to Tic Tac Toe! Please enter the number of players (1-2)."
-    while (((players = @io.gets.chomp.to_i) != 1) && (players != 2))
+    while ((players = @io.gets.chomp.to_i) && players != 1 && players != 2)
       @io.puts "Invalid entry. Please choose between 1-2 players."
     end
     players
@@ -25,21 +25,23 @@ class PlayerInput
 
   def get_move(name, board)
     @io.puts name + ", please make your move."
-    while !(is_a_legal_move?((move = @io.gets.chomp.to_i - 1), board))
+    move = get_move_from_console
+    while !(is_a_legal_move?((move), board))
       if !(move.between?(0,8))
         @io.puts "Sorry, that is not a valid move. Please enter a valid move."
       else
         @io.puts "That space is occupied. Please make another move."
       end
+      move = get_move_from_console 
     end
     move
   end
 
   def get_piece(name)
     @io.puts name + ", please choose either x or o."
-    while (((piece = @io.gets.chomp.upcase) != 'X') && (piece != 'O'))
+    while ((piece = @io.gets.chomp.upcase) != 'X' && piece != 'O')
       @io.puts "You have entered an invalid piece. Please enter either x or o."
-    end
+    end 
     piece
   end
 
@@ -70,4 +72,10 @@ class PlayerInput
   def computer_turn
     @io.puts "The computer has made its move..."
   end
+
+  private
+
+  def get_move_from_console
+    @io.gets.chomp.to_i - 1
+  end 
 end

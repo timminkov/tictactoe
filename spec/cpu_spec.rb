@@ -53,14 +53,4 @@ describe Cpu do
       board.status.should == 'tie'
     end
   end
-
-  describe "#other_piece" do
-    it "returns 'X' if 'O' is passed in" do
-      @cpu.other_piece('X').should == 'O'
-    end
-
-    it "returns 'O' if 'X' is passed in" do
-      @cpu.other_piece('O').should == 'X'
-    end
-  end
 end
