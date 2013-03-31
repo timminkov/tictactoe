@@ -17,7 +17,7 @@ class Game
     @player2.name = @io.get_name(2) if players == 2
 
     @player1.piece = @io.get_piece(@player1.name)
-     players == 2 ? @player2.piece = @player1.other_piece : @player2.piece = @player2.other_piece
+    @player2.piece = @player1.other_piece
   end
 
   def run

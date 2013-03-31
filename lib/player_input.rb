@@ -54,7 +54,7 @@ class PlayerInput
   end
 
   def print_board(board)
-    @io.puts board.data[0] + '|' + board.data[1] + '|' + board.data[2] + "\n- - -\n" + board.data[3] + '|' + board.data[4] + '|' + board.data[5] + "\n- - -\n" + board.data[6] + '|' + board.data[7] + '|' + board.data[8] + "\n"
+    @io.puts data_to_string(board.data[0]) + '|' + data_to_string(board.data[1]) + '|' + data_to_string(board.data[2]) + "\n- - -\n" + data_to_string(board.data[3]) + '|' + data_to_string(board.data[4]) + '|' + data_to_string(board.data[5]) + "\n- - -\n" + data_to_string(board.data[6]) + '|' + data_to_string(board.data[7]) + '|' + data_to_string(board.data[8]) + "\n"
   end
 
   def winner(player1, player2, board)
@@ -74,6 +74,13 @@ class PlayerInput
   end
 
   private
+
+  def data_to_string(data)
+    case data
+    when nil then ' '
+    else data    
+    end
+  end
 
   def get_move_from_console
     @io.gets.chomp.to_i - 1
