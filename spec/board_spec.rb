@@ -68,15 +68,27 @@ describe Board do
 
     it "checks if a board winner is an X" do
       @board2 = Board.new(['X','X','X','O','O',' ',' ',' ',' '])
-      @board2.status.should == 'X'
+      @board2.status.should == 'won'
     end
 
     it "checks if a board winner is an O" do
       @board2 = Board.new(['O','X','O','X','O','X','X','X','O'])
-      @board2.status.should == 'O'
+      @board2.status.should == 'won'
     end
   end
 
+
+  describe "#winner" do
+    it "checks if a board winner is an X" do
+      @board2 = Board.new(['X','X','X','O','O',' ',' ',' ',' '])
+      @board2.winner.should == 'X'
+    end
+
+    it "checks if a board winner is an O" do
+      @board2 = Board.new(['O','X','O','X','O','X','X','X','O'])
+      @board2.winner.should == 'O'
+    end
+  end
   describe "#game_over?" do
     it "checks if a board over" do
       @board2 = Board.new(['X',' ','O','O','X','X','X','O','O'])

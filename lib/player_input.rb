@@ -58,11 +58,11 @@ class PlayerInput
   end
 
   def winner(player1, player2, board)
-    if board.status == player1.piece
+    if board.winner == player1.piece
       @io.puts player1.name + " wins!"
-    elsif board.status == player2.piece && player2.name != 'CPU'
+    elsif board.winner == player2.piece && player2.name != 'CPU'
       @io.puts player2.name + " wins!"
-    elsif board.status == player2.piece && player2.name == 'CPU'
+    elsif board.winner == player2.piece && player2.name == 'CPU'
       @io.puts "Sorry! The CPU won!"
     else
       @io.puts "It's a tie!"
