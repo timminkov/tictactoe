@@ -33,8 +33,9 @@ class Board
     end
   end
 
-  def match?(pos1, pos2, pos3)
-    ((@data[pos1] == @data[pos2]) && (@data[pos2] == @data[pos3]) && (@data[pos1] != ' '))
+  def match?(positions)
+    return false if @data[positions[0]] == ' '
+    ((@data[positions[0]] == @data[positions[1]]) && (@data[positions[1]] == @data[positions[2]]))
   end
 
   def move_available?(move)
@@ -42,15 +43,21 @@ class Board
   end
 
   def winner
-    case
-      when match?(0, 1, 2) then @data[0]
-      when match?(3, 4, 5) then @data[3]
-      when match?(6, 7, 8) then @data[6]
-      when match?(0, 3, 6) then @data[0]
-      when match?(1, 4, 7) then @data[1]
-      when match?(2, 5, 8) then @data[2]
-      when match?(0, 4, 8) then @data[0]
-      when match?(2, 4, 6) then @data[2]
+    list_of_win_locations.each do |win_location|
+      return @data[win_location[0]] if match?(win_location)
     end
+  end
+
+  private
+
+  def list_of_win_locations
+    [[0,1,2],
+     [3,4,5],
+     [6,7,8],
+     [0,3,6],
+     [1,4,7],
+     [2,5,8],
+     [0,4,8],
+     [2,4,6]]
   end
 end

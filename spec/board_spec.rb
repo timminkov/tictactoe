@@ -47,13 +47,13 @@ describe Board do
   describe "#match?" do
     it "checks if three positions in an array are equal" do
       board2 = Board.new(['X','X','X','O','O',' ',' ',' ',' '])
-      board2.match?(0, 1, 2).should == true
-      board2.match?(2, 3, 4).should == false
+      board2.match?([0, 1, 2]).should == true
+      board2.match?([2, 3, 4]).should == false
     end
 
     it "will return false if one of the board positions is blank" do
       board2 = Board.new(['X','X','X','O','O',' ',' ',' ',' '])
-      board2.match?(6, 7, 8).should == false
+      board2.match?([6, 7, 8]).should == false
     end
   end
 
