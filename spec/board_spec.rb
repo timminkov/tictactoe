@@ -11,14 +11,14 @@ describe Board do
     end
 
     it "returns true if a board space is blank" do
-      expect(@board2.move_available?(4)).to eq(true)
-      expect(@board2.move_available?(7)).to eq(true)
-      expect(@board2.move_available?(8)).to eq(true)
+      expect(@board2.move_available?(4)).to be(true)
+      expect(@board2.move_available?(7)).to be(true)
+      expect(@board2.move_available?(8)).to be(true)
     end
 
     it "returns false if a board space is taken" do
-      expect(@board2.move_available?(0)).to eq(false)
-      expect(@board2.move_available?(3)).to eq(false)
+      expect(@board2.move_available?(0)).to be(false)
+      expect(@board2.move_available?(3)).to be(false)
     end
   end
 
@@ -47,13 +47,13 @@ describe Board do
   describe "#match?" do
     it "checks if three positions in an array are equal" do
       board2 = Board.new(['X','X','X','O','O',' ',' ',' ',' '])
-      expect(board2.match?([0, 1, 2])).to eq(true)
-      expect(board2.match?([2, 3, 4])).to eq(false)
+      expect(board2.match?([0, 1, 2])).to be(true)
+      expect(board2.match?([2, 3, 4])).to be(false)
     end
 
     it "will return false if one of the board positions is blank" do
       board2 = Board.new(['X','X','X','O','O',' ',' ',' ',' '])
-      expect(board2.match?([6, 7, 8])).to eq(false)
+      expect(board2.match?([6, 7, 8])).to be(false)
     end
   end
 

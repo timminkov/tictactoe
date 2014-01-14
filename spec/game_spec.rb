@@ -38,12 +38,12 @@ describe Game do
 
     it "gets player 1's name" do
       @game.create_players(1)
-      @game.player1.name.should == 'Tim'
+      expect(@game.player1.name).to eq 'Tim'
     end
 
     it "gets player 2's name" do
       @game.create_players(2)
-      @game.player2.name.should == 'Tim'
+      expect(@game.player2.name).to eq 'Tim'
     end
   end
 end
