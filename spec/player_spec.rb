@@ -11,14 +11,14 @@ describe Player do
   describe "#name" do
     it "returns the name" do
       @player.name = 'Tim'
-      @player.name.should == 'Tim'
+      expect(@player.name).to eq('Tim')
     end
   end
 
   describe "#piece" do
     it "returns the piece" do
       @player.piece = 'X'
-      @player.piece.should == 'X'
+      expect(@player.piece).to eq('X')
     end
   end
 

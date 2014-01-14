@@ -8,14 +8,14 @@ describe Cpu do
 
   describe "#initialize" do
     it "gets initialized with the name 'CPU'" do
-      @cpu.name.should == 'CPU'
+      expect(@cpu.name).to eq('CPU')
     end
   end
 
   describe "#piece" do
     it "takes in a piece and outputs it" do
       @cpu.piece = 'X'
-      @cpu.piece.should == 'X'
+      expect(@cpu.piece).to eq('X')
     end
   end
 
@@ -23,14 +23,14 @@ describe Cpu do
     it "creates a new minimax object" do
       board = Board.new
       @cpu.turn(board)
-      @cpu.minimaxer.should_not == nil
+      expect(@cpu.minimaxer).to_not eq(nil)
     end
 
     it "should return a completed board if given ['X','X','O','O','O','X','X','O',' ']" do
       board = Board.new(['X','X','O','O','O','X','X','O',' '])
       @cpu.piece = 'X'
       board = @cpu.turn(board)
-      board.data.should == ['X','X','O','O','O','X','X','O','X']
+      expect(board.data).to eq(['X','X','O','O','O','X','X','O','X'])
     end
 
     it "resolves in a cats game when played against itself" do
@@ -40,7 +40,7 @@ describe Cpu do
       board = Board.new
       turn = 1
 
-      while !board.game_over?
+      until board.game_over?
         if turn == 1
           board = @cpu.turn(board)
           turn = 2
@@ -50,7 +50,7 @@ describe Cpu do
         end
       end
 
-      board.status.should == 'tie'
+      expect(board.status).to eq('tie')
     end
   end
 end
