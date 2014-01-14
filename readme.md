@@ -19,7 +19,7 @@ Testing
 To run tests, use 
 
 <pre>
-$ rspec spec/
+$ rspec
 </pre>
 
 Contact
